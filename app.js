@@ -1,8 +1,23 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const graphqlHTTP = require("express-graphql");
-const PORT = 4000 || process.env.PORT;
 const schema = require("./schema/schema");
+const mongoose = require("mongoose");
+const PORT = 4000 || process.env.PORT;
+const uri = process.env.MONGODB_URI;
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
+
+const connection = mongoose.connection;
+
+connection.once("open", () => {
+  console.log("Cluster has been connected");
+});
 
 app.use(
   "/graphql",
