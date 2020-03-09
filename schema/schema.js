@@ -20,6 +20,7 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     genre: { type: GraphQLString },
+    bookCover: { type: GraphQLString },
     author: {
       type: AuthorType,
       resolve(parent, args) {
@@ -35,6 +36,9 @@ const AuthorType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
+    bio: { type: GraphQLString },
+    picture: { type: GraphQLString },
+
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
@@ -50,7 +54,8 @@ const RootQuery = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        return Book.find({});
+        const allBooks = Book.find({});
+        return allBooks;
       }
     },
     authors: {
@@ -84,12 +89,16 @@ const Mutation = new GraphQLObjectType({
       type: AuthorType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        age: { type: new GraphQLNonNull(GraphQLInt) }
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        bio: { type: new GraphQLNonNull(GraphQLString) },
+        picture: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
         let author = new Author({
           name: args.name,
-          age: args.age
+          age: args.age,
+          bio: args.bio,
+          picture: args.picture
         });
         return author.save();
       }
@@ -99,12 +108,14 @@ const Mutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
+        bookCover: { type: new GraphQLNonNull(GraphQLString) },
         authorID: { type: new GraphQLNonNull(GraphQLID) }
       },
       resolve(parent, args) {
         let book = new Book({
           title: args.title,
           genre: args.genre,
+          bookCover: args.bookCover,
           authorID: args.authorID
         });
         return book.save();

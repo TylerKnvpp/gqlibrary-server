@@ -6,6 +6,7 @@ const schema = require("./schema/schema");
 const mongoose = require("mongoose");
 const PORT = 4000 || process.env.PORT;
 const uri = process.env.MONGODB_URI;
+const cors = require("cors");
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -18,6 +19,8 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Cluster has been connected");
 });
+
+app.use(cors());
 
 app.use(
   "/graphql",
