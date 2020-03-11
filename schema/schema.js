@@ -21,6 +21,7 @@ const BookType = new GraphQLObjectType({
     title: { type: GraphQLString },
     genre: { type: GraphQLString },
     bookCover: { type: GraphQLString },
+    summary: { type: GraphQLString },
     author: {
       type: AuthorType,
       resolve(parent, args) {
@@ -109,6 +110,7 @@ const Mutation = new GraphQLObjectType({
         title: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
         bookCover: { type: new GraphQLNonNull(GraphQLString) },
+        summary: { type: new GraphQLNonNull(GraphQLString) },
         authorID: { type: new GraphQLNonNull(GraphQLID) }
       },
       resolve(parent, args) {
