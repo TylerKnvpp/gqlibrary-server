@@ -12,8 +12,6 @@ const _ = require("lodash");
 const Book = require("../models/book.model");
 const Author = require("../models/author.model");
 
-// seed data
-
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => ({
@@ -69,7 +67,6 @@ const RootQuery = new GraphQLObjectType({
       type: BookType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        //   code to get data from db/other source
         return Book.findById(args.id);
       }
     },
@@ -118,6 +115,7 @@ const Mutation = new GraphQLObjectType({
           title: args.title,
           genre: args.genre,
           bookCover: args.bookCover,
+          summary: args.summary,
           authorID: args.authorID
         });
         return book.save();
