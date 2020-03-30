@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "client": "cd client && yarn start",
-    "server": "nodemon app.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn app\" \"yarn client\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
