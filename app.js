@@ -4,7 +4,7 @@ require("dotenv").config();
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
-const PORT = 4000 || process.env.PORT;
+const PORT = process.env.PORT || 4000;
 const uri = process.env.MONGODB_URI;
 const cors = require("cors");
 
