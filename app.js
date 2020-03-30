@@ -22,10 +22,6 @@ connection.once("open", () => {
 
 app.use(cors());
 
-app.use("/test", (req, res) => {
-  res.json({ message: "hello" });
-});
-
 app.use(
   "/",
   graphqlHTTP({
